@@ -1,0 +1,42 @@
+name: Build Windows release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    env:
+      RUSTUP_TOOLCHAIN: stable-x86_64-pc-windows-msvc
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable-x86_64-pc-windows-msvc
+          override: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build frontend
+        working-directory: frontend/web
+        run: |
+          npm ci
+          npm run build
+      - name: Build Rust workspace (release)
+        run: |
+          cargo build --workspace --release --locked
+      - name: Build Tauri bundle (Windows)
+        working-directory: crates/tauri-backend
+        run: |
+          npx tauri build --config src-tauri/tauri.conf.json
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: unkai-windows-installer
+          path: |
+            crates/tauri-backend/src-tauri/target/release/bundle/**/*.exe
+            crates/tauri-backend/src-tauri/target/release/bundle/**/*.msi

@@ -1,0 +1,7 @@
+{
+  ""build"": { ""devPath"": ""../frontend/web/dist"", ""distDir"": ""../frontend/web/dist"" },
+  ""tauri"": {
+    ""bundle"": { ""active"": true, ""identifier"": ""com.j-ciro.unkai"", ""icon"": [""icons/icon.ico""] },
+    ""windows"": [{ ""title"": ""unkai"", ""transparent"": true, ""decorations"": false }]
+  }
+}

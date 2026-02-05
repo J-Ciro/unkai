@@ -1,0 +1,16 @@
+[package]
+name = "engine-core"
+version = "0.1.0"
+edition = "2021"
+[lib]
+name = "engine_core"
+path = "src/lib.rs"
+[dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9"
+dashmap = "5"
+anyhow = "1"
+thiserror = "1"
+tracing = "0.1"
+notify = "6"

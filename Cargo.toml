@@ -1,0 +1,9 @@
+[workspace]
+members = [
+  "crates/engine-core",
+  "crates/platform-windows",
+  "crates/tauri-backend",
+  "crates/cli",
+  "crates/plugins",
+  "frontend/web"
+]
