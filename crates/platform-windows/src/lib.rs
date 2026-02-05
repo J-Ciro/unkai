@@ -7,7 +7,6 @@ use engine_core::MonitorInfo;
 use std::ffi::OsStr;
 use std::os::windows::ffi::OsStrExt;
 use tracing::{debug, info};
-use windows::Win32::Displays::MonitorInformation::*;
 use windows::Win32::Foundation::*;
 use windows::Win32::Graphics::Gdi::*;
 
