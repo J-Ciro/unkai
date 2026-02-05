@@ -1,0 +1,174 @@
+:root {
+    --bg-color: rgba(10, 10, 15, 0.95);
+    --text-color: #ffffff;
+    --accent-color: #00ff00;
+    --secondary-color: #0088ff;
+    --error-color: #ff4444;
+    --font-size: 12px;
+    --border-radius: 4px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: var(--font-size);
+    user-select: none;
+    overflow: hidden;
+}
+
+#app {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    gap: 10px;
+}
+
+h1 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--accent-color);
+}
+
+.status {
+    padding: 8px;
+    background: rgba(0, 100, 200, 0.2);
+    border-left: 3px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    font-size: 11px;
+}
+
+.status p {
+    margin: 0;
+}
+
+.widgets-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+}
+
+.widget {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+}
+
+.widget:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-color);
+}
+
+.widget-title {
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 6px;
+    font-size: 13px;
+}
+
+.widget-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.metric {
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    font-size: 11px;
+}
+
+.metric-label {
+    color: #aaa;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.metric-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-top: 4px;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+button {
+    flex: 1;
+    padding: 8px 12px;
+    background: rgba(0, 255, 0, 0.1);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.error {
+    color: var(--error-color);
+    padding: 8px;
+    background: rgba(255, 0, 0, 0.1);
+    border-left: 3px solid var(--error-color);
+    border-radius: var(--border-radius);
+    margin: 5px 0;
+    font-size: 11px;
+}
+
+.loading {
+    opacity: 0.6;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 0, 0.3);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 0, 0.5);
+}
