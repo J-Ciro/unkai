@@ -2,9 +2,33 @@
 name = "platform-windows"
 version = "0.1.0"
 edition = "2021"
+
 [lib]
 name = "platform_windows"
 path = "src/lib.rs"
+
 [dependencies]
-windows = { version = "0.48", features = ["Win32_Foundation", "Win32_System_Threading", "Win32_Graphics_Gdi", "Win32_UI_WindowsAndMessaging"] }
+# Windows APIs
+windows = { version = "0.52", features = [
+    "Win32_Foundation",
+    "Win32_System_Com",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_UI_HiDpi",
+    "Win32_Graphics_Gdi",
+    "Win32_System_Memory",
+    "Win32_System_ProcessStatus",
+    "Win32_System_Diagnostics_ToolHelp",
+    "Win32_System_Registry",
+] }
+
+# Re-export from engine-core
+engine-core = { path = "../engine-core" }
+
+# Error handling
 anyhow = "1"
+thiserror = "1"
+
+# Logging
+tracing = "0.1"
+
+[dev-dependencies]

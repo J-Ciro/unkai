@@ -1,7 +1,27 @@
 {
-  ""build"": { ""devPath"": ""../frontend/web/dist"", ""distDir"": ""../frontend/web/dist"" },
-  ""tauri"": {
-    ""bundle"": { ""active"": true, ""identifier"": ""com.j-ciro.unkai"", ""icon"": [""icons/icon.ico""] },
-    ""windows"": [{ ""title"": ""unkai"", ""transparent"": true, ""decorations"": false }]
+  "build": {
+    "devPath": "http://localhost:5173",
+    "frontendDist": "../frontend/web/dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "unkai - Simple Bar",
+        "width": 400,
+        "height": 1000,
+        "x": 0,
+        "y": 0,
+        "fullscreen": false,
+        "resizable": true,
+        "alwaysOnTop": false
+      }
+    ]
+  },
+  "tauri": {
+    "bundle": {
+      "active": true,
+      "identifier": "com.j-ciro.unkai",
+      "icon": ["icons/icon.ico"]
+    }
   }
 }

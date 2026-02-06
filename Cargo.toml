@@ -5,5 +5,10 @@ members = [
   "crates/tauri-backend",
   "crates/cli",
   "crates/plugins",
-  "frontend/web"
 ]
+
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
