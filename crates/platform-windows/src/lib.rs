@@ -4,8 +4,8 @@
 
 use anyhow::{anyhow, Result};
 use engine_core::MonitorInfo;
-use std::ffi::OsStr;
-use std::os::windows::ffi::OsStrExt;
+
+
 use tracing::{debug, info};
 use windows::Win32::Foundation::*;
 use windows::Win32::Graphics::Gdi::*;
@@ -78,7 +78,7 @@ unsafe fn get_monitor_info(hmonitor: HMONITOR) -> Result<MonitorInfo> {
     let height = rect.bottom - rect.top;
 
     // ¿Es primary?
-    let is_primary = (monitorinfo.monitorInfo.dwFlags & MONITORINFOF_PRIMARY.0) != 0;
+    let is_primary = (monitorinfo.monitorInfo.dwFlags & 1) != 0;
 
     // Generar ID único
     let id = format!("monitor_{}", device_name.replace("\\", "_"));
@@ -106,8 +106,8 @@ unsafe fn get_monitor_dpi(hmonitor: HMONITOR) -> Result<u32> {
     let mut dpi_y: u32 = 96;
 
     // Intentar GetDpiForMonitor (Windows 8.1+)
-    use windows::Win32::System::Com::GetDpiForMonitor;
-    use windows::Win32::System::Com::MDT_EFFECTIVE_DPI;
+    use windows::Win32::UI::HiDpi::GetDpiForMonitor;
+    use windows::Win32::UI::HiDpi::MDT_EFFECTIVE_DPI;
 
     let result = GetDpiForMonitor(hmonitor, MDT_EFFECTIVE_DPI, &mut dpi_x, &mut dpi_y);
     if result.is_ok() {
