@@ -143,7 +143,7 @@ async fn fetch_process_metrics() -> Result<serde_json::Value> {
     for (pid, process) in sys.processes().iter().take(10) {
         top_processes.push(serde_json::json!({
             "pid": pid.as_u32(),
-            "name": process.name().to_str().unwrap_or(""),
+            "name": process.name(),
             "cpu_percent": process.cpu_usage(),
             "memory_mb": process.memory() / 1024,
         }));
