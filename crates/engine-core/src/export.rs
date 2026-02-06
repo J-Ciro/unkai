@@ -83,9 +83,9 @@ impl Exporter {
             .iter()
             .filter_map(|w| {
                 // Only export supported widget types
-                let widget_type = match w.config.widget_type.as_str() {
-                    "System" => "system-metrics",
-                    "Process" => "process-monitor",
+                let widget_type = match w.config.widget_type {
+                    crate::WidgetType::System => "system-metrics",
+                    crate::WidgetType::Process => "process-monitor",
                     _ => return None,
                 };
 
@@ -93,7 +93,7 @@ impl Exporter {
                     id: w.config.id.clone(),
                     r#type: widget_type.to_string(),
                     template: w.config.template.clone(),
-                    data: w.last_data.clone(),
+                    data: w.last_data.clone().unwrap_or(serde_json::Value::Null),
                     styles: None,
                 })
             })
@@ -140,7 +140,7 @@ impl Exporter {
 "#,
                 widget.config.id,
                 widget.config.id,
-                Self::render_widget_html(&widget.last_data)
+                Self::render_widget_html(widget.last_data.as_ref().unwrap_or(&serde_json::Value::Null))
             ));
         }
 

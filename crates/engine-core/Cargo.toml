@@ -40,6 +40,9 @@ uuid = { version = "1.0", features = ["v4", "serde"] }
 # Time utilities
 chrono = { version = "0.4", features = ["serde"] }
 
+# Directory utilities
+dirs = "5"
+
 # Template engine
 regex = "1"
 

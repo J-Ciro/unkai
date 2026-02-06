@@ -5,6 +5,6 @@ pub mod memory;
 pub mod network;
 
 pub use audio::{AudioDevice, AudioProvider};
-pub use battery::{BatteryProvider, BatteryState};
+pub use battery::{BatteryProvider, BatteryState, BatteryStatus};
 pub use memory::{MemoryProvider, MemoryStats};
 pub use network::{NetworkInterface, NetworkProvider, NetworkTraffic};

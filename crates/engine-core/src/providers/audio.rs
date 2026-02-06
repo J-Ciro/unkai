@@ -50,7 +50,7 @@ impl AudioProvider {
     }
 
     /// Set volume for a device (0-100)
-    pub fn set_volume(device_id: &str, volume: f32) -> anyhow::Result<()> {
+    pub fn set_volume(_device_id: &str, volume: f32) -> anyhow::Result<()> {
         // Validate volume range
         if volume < 0.0 || volume > 100.0 {
             anyhow::bail!("Volume must be between 0 and 100");

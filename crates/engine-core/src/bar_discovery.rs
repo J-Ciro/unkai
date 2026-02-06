@@ -3,7 +3,7 @@
  * Scans ~/.unkai/bar/ for available custom status bars
  */
 
-use crate::bar::{BarAnchor, BarInfo, BarManifest, BarWindowConfig};
+use crate::bar::{BarInfo, BarManifest, BarWindowConfig};
 use anyhow::Result;
 use std::fs;
 use std::path::{Path, PathBuf};

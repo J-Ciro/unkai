@@ -49,7 +49,7 @@ pub fn load_config(path: Option<PathBuf>) -> Result<Config> {
 
 /// Crear config default si no existe
 pub fn create_default_config(path: &Path) -> Result<Config> {
-    use crate::{GlobalConfig, GlobalStyles, DisplayConfig};
+    use crate::{GlobalConfig, GlobalStyles};
     use std::collections::HashMap;
 
     let mut variables = HashMap::new();
@@ -91,6 +91,7 @@ pub fn create_default_config(path: &Path) -> Result<Config> {
         global: GlobalConfig {
             debug: false,
             log_level: "info".to_string(),
+            selected_bar: None,
         },
     };
 

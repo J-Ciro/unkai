@@ -1,14 +1,19 @@
 //! Komorebi socket IPC client
 //! 
-//! Connects to Komorebi tiling window manager via Unix socket
+//! Connects to Komorebi tiling window manager via IPC
 //! Receives workspace/layout changes and manages state
 
 use anyhow::{anyhow, Result};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
-use tokio::net::UnixStream;
-use tokio::task::JoinHandle;
+
+// Stub type for Windows builds - actual IPC implementation TODO
+#[cfg(windows)]
+type SocketStream = tokio::net::TcpStream;
+
+#[cfg(unix)]
+type SocketStream = tokio::net::UnixStream;
 
 /// Komorebi socket path
 pub fn komorebi_socket_path() -> PathBuf {
@@ -63,7 +68,7 @@ pub struct KomorebiState {
 
 /// Komorebi socket client
 pub struct KomorebiClient {
-    socket: Option<UnixStream>,
+    socket: Option<SocketStream>,
     path: PathBuf,
 }
 
@@ -77,12 +82,21 @@ impl KomorebiClient {
 
     /// Connect to Komorebi socket
     pub async fn connect(&mut self) -> Result<()> {
-        match UnixStream::connect(&self.path).await {
-            Ok(socket) => {
-                self.socket = Some(socket);
-                Ok(())
+        #[cfg(unix)]
+        {
+            match SocketStream::connect(&self.path).await {
+                Ok(socket) => {
+                    self.socket = Some(socket);
+                    Ok(())
+                }
+                Err(e) => Err(anyhow!("Failed to connect to Komorebi socket: {}", e)),
             }
-            Err(e) => Err(anyhow!("Failed to connect to Komorebi socket: {}", e)),
+        }
+        
+        #[cfg(windows)]
+        {
+            // TODO: Implement Windows named pipe connection for Komorebi
+            Err(anyhow!("Komorebi IPC not yet implemented for Windows"))
         }
     }
 
@@ -141,7 +155,7 @@ impl Default for KomorebiClient {
 
 /// Listener for workspace events from Komorebi
 pub struct WorkspaceEventListener {
-    reader: BufReader<UnixStream>,
+    reader: BufReader<SocketStream>,
 }
 
 impl WorkspaceEventListener {
